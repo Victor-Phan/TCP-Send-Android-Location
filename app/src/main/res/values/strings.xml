@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">COMP4985_Assignment3_App</string>
+    <string name="port">Port Number</string>
+    <string name="ipAddress">IP Address</string>
+    <string name="connect">Connect</string>
+    <string name="undefined">undefined</string>
+</resources>
