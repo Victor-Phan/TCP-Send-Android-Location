@@ -1,4 +1,28 @@
 package ca.bcit.comp4985_assignment3_app;
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: 	MainActivity.java - This is the main driver of the program. It loads up the initial screen
+--                                      that prompts the user for the server IP and port.
+--
+-- PROGRAM: 		SendLocationUpdates
+--
+-- FUNCTIONS:       onCreate(Bundle savedInstanceState)
+--                  onStop()
+--                  onDestroy()
+--
+--
+-- DATE: 			March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 		Victor Phan
+--
+-- PROGRAMMER: 		Victor Phan
+--
+-- NOTES:
+--                  The MainActivity checks for location permissions and prompts the user.
+--                  It also collects the IP and port of the server to pass to the next scene via an intent.
+--
+--------------------------------------------------------------------------------------------------------------------*/
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -14,6 +38,26 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*-----------------------------------------------------------------------------------------------------------------
+-- Function:	onCreate
+--
+-- DATE:		March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 	Victor Phan
+--
+-- PROGRAMMER: 	Victor Phan
+--
+-- INTERFACE:	void onCreate(Bundle savedInstanceState)
+--
+-- RETURNS:     void
+--
+-- NOTES:
+--              This function create the scene and displays it to the user.
+--              It will also check if location permission was provided.
+--
+-------------------------------------------------------------------------------------------------------------------*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

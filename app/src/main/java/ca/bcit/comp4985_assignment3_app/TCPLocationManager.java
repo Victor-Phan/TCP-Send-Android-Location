@@ -1,4 +1,36 @@
 package ca.bcit.comp4985_assignment3_app;
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: 	TCPLocationManager.java - Creates a TCP Connection and sends the the user's location
+--                                            to the server every 3 seconds.
+--
+-- PROGRAM: 		SendLocationUpdates
+--
+-- FUNCTIONS:       startUpdates(Bundle savedInstanceState)
+--                  onLocationChanged(Location loc)
+--                  onDestroy()
+--                  checkLocationPermission(final Activity activity)
+--                  createLocationRequestDialog(final Activity activity)
+--                  SendUpdateToServer
+--                  onProviderDisabled(String provider)
+--                  onProviderEnabled(String provider)
+--                  onStatusChanged(String provider, int status, Bundle extras)
+--
+--
+-- DATE: 			March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 		Victor Phan
+--
+-- PROGRAMMER: 		Victor Phan
+--
+-- NOTES:
+--                  This class contains methods to get the user's location periodically then
+--                  send it over to the server in a formated string
+--                  ie: lat,long
+--                  ie: 10.22,-123.446
+--
+--------------------------------------------------------------------------------------------------------------------*/
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -31,10 +63,30 @@ public class TCPLocationManager implements LocationListener {
     public TCPClient client = null;
     public String ip;
     public int port;
-
     private LocationManager locationManager;
 
-    //Permission is already requested..
+    /*-----------------------------------------------------------------------------------------------------------------
+-- Constructor:	TCPLocationManager
+--
+-- DATE:		March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 	Victor Phan
+--
+-- PROGRAMMER: 	Victor Phan
+--
+-- Interface:	TCPLocationManager(Activity activity, String ip, int port)
+--                                  activity - The activity creating this object
+--                                  ip - valid ip address of the server
+--                                  port - valid port on the server
+--
+-- NOTES:
+--              Checks if location permission was provided.
+--              Saves all parameters to object instance.
+--              Throws Exception if location permissions is not granted.
+--
+-------------------------------------------------------------------------------------------------------------------*/
     public TCPLocationManager(Activity activity, String ip, int port) throws Exception {
         this.parentActivity = activity;
         this.mContext = activity.getBaseContext();
@@ -47,13 +99,52 @@ public class TCPLocationManager implements LocationListener {
         this.port = port;
     }
 
-    // Do not need to check permissions since constructor checks for us.
+    /*-----------------------------------------------------------------------------------------------------------------
+-- Function:	startUpdates
+--
+-- DATE:		March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 	Victor Phan
+--
+-- PROGRAMMER: 	Victor Phan
+--
+-- INTERFACE:	void startUpdates()
+--
+-- RETURNS:     void
+--
+-- NOTES:
+--              Do not need to check permissions because the constructor already checks for it.
+--              This method will start the onLocationChanged callback loop.
+--
+-------------------------------------------------------------------------------------------------------------------*/
     @SuppressLint("MissingPermission")
     public void startUpdates() {
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, updatesInMilliseconds, minDistance, TCPLocationManager.this);
     }
 
+    /*-----------------------------------------------------------------------------------------------------------------
+-- Function:	onLocationChanged
+--
+-- DATE:		March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 	Victor Phan
+--
+-- PROGRAMMER: 	Victor Phan
+--
+-- INTERFACE:	void onLocationChanged(Location loc)
+--                      loc - contains the current location
+--
+-- RETURNS:     void
+--
+-- NOTES:
+--              This function will be called every updatesInMilliseconds milliseconds after the startUpdates has ran.
+--
+-------------------------------------------------------------------------------------------------------------------*/
     @Override
     public void onLocationChanged(Location loc) {
         try {
@@ -64,6 +155,27 @@ public class TCPLocationManager implements LocationListener {
 
     }
 
+    /*-----------------------------------------------------------------------------------------------------------------
+-- Function:	checkLocationPermission
+--
+-- DATE:		March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 	Victor Phan
+--
+-- PROGRAMMER: 	Victor Phan
+--
+-- INTERFACE:	void  checkLocationPermission(final Activity activity)
+--                      activity - activity that calls this function
+--
+-- RETURNS:     void
+--
+-- NOTES:
+--              This function will check if location permissions are granted to the app.
+--              If they are not it will create a dialog requesting permissions to be granted.
+--
+-------------------------------------------------------------------------------------------------------------------*/
     public static void checkLocationPermission(final Activity activity) {
         try {
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -86,6 +198,26 @@ public class TCPLocationManager implements LocationListener {
 
     }
 
+    /*-----------------------------------------------------------------------------------------------------------------
+-- Function:	createLocationRequestDialog
+--
+-- DATE:		March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 	Victor Phan
+--
+-- PROGRAMMER: 	Victor Phan
+--
+-- INTERFACE:	void  createLocationRequestDialog(final Activity activity)
+--                      activity - activity that calls this function
+--
+-- RETURNS:     void
+--
+-- NOTES:
+--                    Creates a dialog to request permissions from the user.
+--
+-------------------------------------------------------------------------------------------------------------------*/
     public static void createLocationRequestDialog(final Activity activity) {
         //Alert the user for Location Permission request
         new AlertDialog.Builder(activity)
@@ -133,6 +265,9 @@ public class TCPLocationManager implements LocationListener {
                 // Remove updates
                 locationManager.removeUpdates(TCPLocationManager.this);
                 location = null;
+                if(client != null) {
+                    client.disconnect();
+                }
             }
             return location;
         }
@@ -184,14 +319,28 @@ public class TCPLocationManager implements LocationListener {
         }
     }
 
+    /**
+     * Unused.
+     * @param provider
+     */
     @Override
     public void onProviderDisabled(String provider) {
     }
 
+    /**
+     * Unused.
+     * @param provider
+     */
     @Override
     public void onProviderEnabled(String provider) {
     }
 
+    /**
+     * Unused.
+     * @param provider
+     * @param status
+     * @param extras
+     */
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }

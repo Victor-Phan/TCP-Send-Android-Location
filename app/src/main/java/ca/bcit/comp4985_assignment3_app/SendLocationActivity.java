@@ -1,4 +1,26 @@
 package ca.bcit.comp4985_assignment3_app;
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: 	SendLocationActivity.java - Contains the activity that shows each sent location to the server.
+--
+-- PROGRAM: 		SendLocationUpdates
+--
+-- FUNCTIONS:       onCreate(Bundle savedInstanceState)
+--                  onStop()
+--                  onDestroy()
+--
+--
+-- DATE: 			March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 		Victor Phan
+--
+-- PROGRAMMER: 		Victor Phan
+--
+-- NOTES:
+--                  Connects the server and starts periodically sending location updates.
+--
+--------------------------------------------------------------------------------------------------------------------*/
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,6 +33,25 @@ public class SendLocationActivity extends AppCompatActivity {
 
     public TCPLocationManager manager = null;
 
+
+    /*-----------------------------------------------------------------------------------------------------------------
+-- Function:	onCreate
+--
+-- DATE:		March 16, 2020
+--
+-- REVISIONS:
+--
+-- DESIGNER: 	Victor Phan
+--
+-- PROGRAMMER: 	Victor Phan
+--
+-- Interface:	onCreate(Bundle savedInstanceState)
+--
+-- NOTES:
+--              Grabs the Server ip and port via an intent.
+--              Starts sending location updates to the server.
+--
+-------------------------------------------------------------------------------------------------------------------*/
     @SuppressLint("ServiceCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +78,17 @@ public class SendLocationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Default unused.
+     */
     @Override
     protected void onStop() {
         super.onStop();
     }
 
+    /**
+     * Default unused.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
