@@ -3,5 +3,6 @@
     <string name="port">Port Number</string>
     <string name="ipAddress">IP Address</string>
     <string name="connect">Connect</string>
+    <string name="name">Name</string>
     <string name="undefined">undefined</string>
 </resources>

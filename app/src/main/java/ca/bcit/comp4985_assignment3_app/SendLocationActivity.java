@@ -63,14 +63,17 @@ public class SendLocationActivity extends AppCompatActivity {
             Intent intent = getIntent();
             String ip = intent.getStringExtra("ip");
             String port = intent.getStringExtra("port");
+            String clientName = intent.getStringExtra("clientName");
 
             TextView tv_IPAddress = findViewById(R.id.ipAddress);
             TextView tv_PortNumber = findViewById(R.id.portNumber);
+            TextView tv_clientName = findViewById(R.id.clientName);
 
             tv_IPAddress.setText(ip);
             tv_PortNumber.setText(port);
+            tv_clientName.setText(clientName);
 
-            manager = new TCPLocationManager(SendLocationActivity.this, ip, Integer.parseInt(port));
+            manager = new TCPLocationManager(SendLocationActivity.this, ip, Integer.parseInt(port), clientName);
             manager.startUpdates();
         } catch (Exception e) {
             e.printStackTrace();

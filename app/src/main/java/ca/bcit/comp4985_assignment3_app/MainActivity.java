@@ -73,16 +73,19 @@ public class MainActivity extends AppCompatActivity {
         Button btn_Connect = findViewById(R.id.connectButton);
         final EditText et_IPAddressEditText = findViewById(R.id.etIPAddress);
         final EditText et_PortNumber = findViewById(R.id.etPortNumber);
+        final EditText et_ClientName = findViewById(R.id.etClientName);
 
         btn_Connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String ip = et_IPAddressEditText.getText().toString();
                 String port = et_PortNumber.getText().toString();
+                String clientName = et_ClientName.getText().toString();
                 //make intent and send to next activity
                 Intent i = new Intent(getBaseContext(), SendLocationActivity.class);
                 i.putExtra("ip", ip);
                 i.putExtra("port", port);
+                i.putExtra("clientName", clientName);
                 startActivity(i);
             }
         });

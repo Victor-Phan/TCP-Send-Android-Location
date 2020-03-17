@@ -61,6 +61,7 @@ public class TCPLocationManager implements LocationListener {
     public Activity parentActivity = null;
     public Context mContext = null;
     public TCPClient client = null;
+    public String clientName = "unknown";
     public String ip;
     public int port;
     private LocationManager locationManager;
@@ -87,7 +88,7 @@ public class TCPLocationManager implements LocationListener {
 --              Throws Exception if location permissions is not granted.
 --
 -------------------------------------------------------------------------------------------------------------------*/
-    public TCPLocationManager(Activity activity, String ip, int port) throws Exception {
+    public TCPLocationManager(Activity activity, String ip, int port, String clientName) throws Exception {
         this.parentActivity = activity;
         this.mContext = activity.getBaseContext();
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
@@ -97,6 +98,7 @@ public class TCPLocationManager implements LocationListener {
         }
         this.ip = ip;
         this.port = port;
+        this.clientName = clientName;
     }
 
     /*-----------------------------------------------------------------------------------------------------------------
@@ -256,7 +258,8 @@ public class TCPLocationManager implements LocationListener {
                 //build string
                 String locationString = "";
                 locationString += latitude + ",";
-                locationString += longitude;
+                locationString += longitude + ",";
+                locationString += clientName;
                 if (client == null) {
                     client = new TCPClient(ip, port);
                 }
