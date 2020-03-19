@@ -256,8 +256,7 @@ public class TCPLocationManager implements LocationListener {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 //build string
-                String locationString = "";
-                locationString += latitude + ",";
+                String locationString = latitude + ",";
                 locationString += longitude + ",";
                 locationString += clientName;
                 if (client == null) {
