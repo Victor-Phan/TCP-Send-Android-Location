@@ -110,8 +110,8 @@ public class TCPClient {
     public boolean sendData(String data) throws IOException{
         // Send client string to server
         try {
-            outputToServer.writeBytes(data);
-            outputToServer.flush();
+            outputToServer.writeUTF(data);
+            //outputToServer.flush();
         }catch(IOException e) {
             e.printStackTrace();
             throw e;
